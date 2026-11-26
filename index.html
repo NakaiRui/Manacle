@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manacle</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="header">
+    <a class="logo" href="#" onclick="showHome()">🎵 Manacle</a>
+    <nav>
+      <button onclick="showHome()">ホーム</button>
+      <button onclick="showHistory()">学習履歴</button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ホーム画面 -->
+    <section id="homeScreen" class="screen active">
+      <div class="hero">
+        <p class="eyebrow">LET'S STUDY</p>
+        <h1>今日の学習</h1>
+        <p>気軽に1問から！楽しく学ぼう。</p>
+      </div>
+
+      <div class="subject-preview">
+        <div class="subject-chip pink">
+          <img src="images/kokugo.png" alt="">
+          国語
+        </div>
+        <div class="subject-chip blue">
+          <img src="images/sansuu.png" alt="">
+          算数
+        </div>
+        <div class="subject-chip green">
+          <img src="images/rika.png" alt="">
+          理科
+        </div>
+        <div class="subject-chip yellow">
+          <img src="images/syakai.png" alt="">
+          社会
+        </div>
+        <div class="subject-chip purple">
+          <img src="images/eigo.png" alt="">
+          英語
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>何を勉強する？</h2>
+        <p>好きな教科を選んでね。</p>
+
+        <div class="subject-grid">
+          <button class="subject-card selected" data-subject="国語">
+            <img src="images/kokugo.png" alt="">
+            <b>国語</b>
+            <small>漢字・語彙</small>
+          </button>
+
+          <button class="subject-card" data-subject="算数">
+            <img src="images/sansuu.png" alt="">
+            <b>算数</b>
+            <small>計算・図形</small>
+          </button>
+
+          <button class="subject-card" data-subject="理科">
+            <img src="images/rika.png" alt="">
+            <b>理科</b>
+            <small>自然・科学</small>
+          </button>
+
+          <button class="subject-card" data-subject="社会">
+            <img src="images/syakai.png" alt="">
+            <b>社会</b>
+            <small>歴史・地理</small>
+          </button>
+
+          <button class="subject-card" data-subject="英語">
+            <img src="images/eigo.png" alt="">
+            <b>英語</b>
+            <small>単語・文法</small>
+          </button>
+        </div>
+
+        <h2 class="difficulty-title">難易度を選ぼう</h2>
+
+        <div class="difficulty-grid">
+          <button class="difficulty selected" data-difficulty="かんたん">
+            🌱 かんたん
+          </button>
+          <button class="difficulty" data-difficulty="ふつう">
+            🌼 ふつう
+          </button>
+          <button class="difficulty" data-difficulty="むずかしい">
+            🔥 むずかしい
+          </button>
+        </div>
+
+        <button id="startButton" class="primary-button">
+          この内容でスタート →
+        </button>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span>これまでの学習</span>
+          <strong id="totalCount">0</strong>
+          <small>問</small>
+        </div>
+
+        <div class="stat-card">
+          <span>正答率</span>
+          <strong id="totalAccuracy">0</strong>
+          <small>%</small>
+        </div>
+      </div>
+    </section>
+
+    <!-- クイズ画面 -->
+    <section id="quizScreen" class="screen">
+      <div class="quiz-top">
+        <button class="back-button" onclick="showHome()">← 戻る</button>
+        <span id="quizSubject">国語</span>
+        <span id="quizDifficulty">かんたん</span>
+      </div>
+
+      <div class="progress-area">
+        <div class="progress-text">
+          <span id="questionNumber">1 / 10</span>
+          <span id="quizScore">正解 0</span>
+        </div>
+        <div class="progress-bar">
+          <div id="progressFill"></div>
+        </div>
+      </div>
+
+      <div class="question-panel">
+        <p class="question-label">QUESTION</p>
+        <h2 id="questionText">問題がここに表示されます</h2>
+        <div id="answerChoices" class="answer-choices"></div>
+        <div id="explanation" class="explanation hidden"></div>
+        <button id="nextButton" class="primary-button hidden">
+          次の問題 →
+        </button>
+      </div>
+    </section>
+
+    <!-- 結果画面 -->
+    <section id="resultScreen" class="screen">
+      <div class="result-panel">
+        <p class="eyebrow">STUDY COMPLETE</p>
+        <h1>おつかれさま！</h1>
+        <p>今回の学習結果</p>
+
+        <div class="result-circle">
+          <strong id="resultAccuracy">0%</strong>
+          <span>正答率</span>
+        </div>
+
+        <div class="result-stats">
+          <div>
+            <span>正解</span>
+            <strong id="resultCorrect">0</strong>
+          </div>
+          <div>
+            <span>問題数</span>
+            <strong id="resultTotal">0</strong>
+          </div>
+        </div>
+
+        <p id="resultMessage"></p>
+
+        <button class="primary-button" onclick="showHome()">
+          ホームに戻る
+        </button>
+        <button class="secondary-button" onclick="startQuiz()">
+          もう一度挑戦
+        </button>
+      </div>
+    </section>
+
+    <!-- 履歴画面 -->
+    <section id="historyScreen" class="screen">
+      <div class="panel">
+        <h1>学習履歴</h1>
+        <p>これまでの学習を振り返ろう。</p>
+
+        <div id="historyList" class="history-list"></div>
+
+        <button class="secondary-button" onclick="clearHistory()">
+          履歴を削除
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Manacle | 楽しく学ぼう</p>
+  </footer>
+
+  <script src="questions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
